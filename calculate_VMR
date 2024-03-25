@@ -34,16 +34,16 @@ calculate_VMR <- function(K, X, verbose = F) {
   
   
   if (verbose == T) {
-    print(paste("Total points (n) = ", n, sep = ""))
-    print(paste("Total quadrats (x) = ", x, sep = ""))
-    print(paste("Mean quadrats count (u) = ", u, sep = ""))
-    print(paste("K - u = ", list(Ku), sep = ""))
-    print(paste("(K - u)^2 = ", list(Ku2), sep = ""))
-    print(paste("X(K - u)^2 = ", list(XKu2), sep = ""))
-    print(paste("Toatal X(K - u)^2 = ", total_XKu2, sep = ""))
-    print(paste("Variance (s^2) = ", s2, sep = ""))
-    print(paste("VMR = ", VMR, sep = ""))
-    print(paste("The pattern appears ", pattern, ".", sep = ""))
+    cat(paste("Total points (n) = ", n, sep = ""))
+    cat(paste("Total quadrats (x) = ", x, sep = ""))
+    cat(paste("Mean quadrats count (u) = ", u, sep = ""))
+    cat(paste("K - u = ", list(Ku), sep = ""))
+    cat(paste("(K - u)^2 = ", list(Ku2), sep = ""))
+    cat(paste("X(K - u)^2 = ", list(XKu2), sep = ""))
+    cat(paste("Toatal X(K - u)^2 = ", total_XKu2, sep = ""))
+    cat(paste("Variance (s^2) = ", s2, sep = ""))
+    cat(paste("VMR = ", VMR, sep = ""))
+    cat(paste("The pattern appears ", pattern, ".", sep = ""))
   }
   
   return(VMR)
