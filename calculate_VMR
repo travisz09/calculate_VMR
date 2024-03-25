@@ -1,0 +1,50 @@
+calculate_VMR <- function(K, X, verbose = F) {
+  n <- sum(K*X)
+  x <- sum(X)
+  u <- n/x
+  Ku <- K - u
+  Ku2 <- Ku^2
+  XKu2 <- X*Ku2
+  total_XKu2 <- sum(XKu2)
+  s2 <- total_XKu2/(x-1)
+  VMR <- s2/u
+  if (VMR < 0.25) {
+    pattern <- "highly uniform"
+  } else {
+    if (VMR < 0.5) {
+      pattern <- "uniform"
+    } else {
+      if (VMR < 0.75) {
+        pattern <- "approaching uniform"
+      } else {
+        if (VMR < 1.25) {
+          pattern <- "random"
+        } else {
+          if (VMR < 1.5) {
+            pattern <- "approaching clustered"
+          } else {
+            if (VMR < 1.75) {
+              pattern <- "culstered"
+            } else {pattern <- "highly clustered"}
+          }
+        }
+      }
+    }
+  }
+  
+  
+  if (verbose == T) {
+    print(paste("Total points (n) = ", n, sep = ""))
+    print(paste("Total quadrats (x) = ", x, sep = ""))
+    print(paste("Mean quadrats count (u) = ", u, sep = ""))
+    print(paste("K - u = ", list(Ku), sep = ""))
+    print(paste("(K - u)^2 = ", list(Ku2), sep = ""))
+    print(paste("X(K - u)^2 = ", list(XKu2), sep = ""))
+    print(paste("Toatal X(K - u)^2 = ", total_XKu2, sep = ""))
+    print(paste("Variance (s^2) = ", s2, sep = ""))
+    print(paste("VMR = ", VMR, sep = ""))
+    print(paste("The pattern appears ", pattern, ".", sep = ""))
+  }
+  
+  return(VMR)
+}
