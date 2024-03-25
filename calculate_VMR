@@ -46,17 +46,17 @@ calculate_VMR <- function(K, X, verbose = F) {
       rename(`COUNTS_(K)` = grep(K, data),
              `FREQUENCY_(X)` = grep(X, data))%>%
       select(`COUNTS_(K)`, `FREQUENCY_(X)`)%>%
-      mutate(`K-μ` = `COUNTS_(K)` - u,
-             `(K-μ)^2` = `K-μ`^2,
-             `X(K-μ)^2` = `FREQUENCY_(X)` * `(K-μ)^2`)
+      mutate(`K-u` = `COUNTS_(K)` - u,
+             `(K-u)^2` = `K-u`^2,
+             `X(K-u)^2` = `FREQUENCY_(X)` * `(K-u)^2`)
     })
     print(paste("Total number of points (n) = ", n, sep = ""))
     print(paste("Total number of quadrats (x) = ", x, sep = ""))
-    print(paste("Mean quadrat counts (\u03BC) = n/x = ", n, sep = ""))
+    print(paste("Mean quadrat counts (u) = n/x = ", u, sep = ""))
     print(VMR_table)
-    print(paste("Total X(K - \u03BC)^2 = ", total_XKu2, sep = ""))
+    print(paste("Total X(K - u)^2 = ", total_XKu2, sep = ""))
     print(paste("Variance (s\u00B2) = (\u2211X(K-u)^2)/(x-1) = ", s2, sep = ""))
-    print(paste("VMR = s\u00B2/\u03BC = ", round(VMR, 6), sep = ""))
+    print(paste("VMR = s\u00B2/u = ", round(VMR, 6), sep = ""))
     print(paste("The pattern appears ", pattern, ".", sep = ""))
     
   }
