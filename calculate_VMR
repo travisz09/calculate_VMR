@@ -1,3 +1,10 @@
+#VMR_Calculator
+library(tidyverse)
+
+data <- read.csv(file.choose())
+
+data
+
 calculate_VMR <- function(K, X, verbose = F) {
   n <- sum(K*X)
   x <- sum(X)
@@ -34,17 +41,27 @@ calculate_VMR <- function(K, X, verbose = F) {
   
   
   if (verbose == T) {
-    print(paste("Total points (n) = ", n, sep = ""))
-    print(paste("Total quadrats (x) = ", x, sep = ""))
-    print(paste("Mean quadrats count (u) = ", u, sep = ""))
-    print(paste("K - u = ", list(Ku), sep = ""))
-    print(paste("(K - u)^2 = ", list(Ku2), sep = ""))
-    print(paste("X(K - u)^2 = ", list(XKu2), sep = ""))
-    print(paste("Toatal X(K - u)^2 = ", total_XKu2, sep = ""))
-    print(paste("Variance (s^2) = ", s2, sep = ""))
-    print(paste("VMR = ", VMR, sep = ""))
+    suppressWarnings({
+      VMR_table <- data%>%
+      rename(`COUNTS_(K)` = grep(K, data),
+             `FREQUENCY_(X)` = grep(X, data))%>%
+      select(`COUNTS_(K)`, `FREQUENCY_(X)`)%>%
+      mutate(`K-μ` = `COUNTS_(K)` - u,
+             `(K-μ)^2` = `K-μ`^2,
+             `X(K-μ)^2` = `FREQUENCY_(X)` * `(K-μ)^2`)
+    })
+    print(paste("Total number of points (n) = ", n, sep = ""))
+    print(paste("Total number of quadrats (x) = ", x, sep = ""))
+    print(paste("Mean quadrat counts (\u03BC) = n/x = ", n, sep = ""))
+    print(VMR_table)
+    print(paste("Total X(K - \u03BC)^2 = ", total_XKu2, sep = ""))
+    print(paste("Variance (s\u00B2) = (\u2211X(K-u)^2)/(x-1) = ", s2, sep = ""))
+    print(paste("VMR = s\u00B2/\u03BC = ", round(VMR, 6), sep = ""))
     print(paste("The pattern appears ", pattern, ".", sep = ""))
+    
   }
   
   return(VMR)
 }
+
+VMR <- calculate_VMR(data$sum_weight, data$FREQUENCY, verbose = T)
