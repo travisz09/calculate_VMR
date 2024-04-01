@@ -22,13 +22,13 @@ calculate_VMR <- function(K, X, verbose = F) {
       pattern <- "uniform"
     } else {
       if (VMR < 0.75) {
-        pattern <- "approaching uniform"
+        pattern <- "random, approaching uniform"
       } else {
         if (VMR < 1.25) {
           pattern <- "random"
         } else {
           if (VMR < 1.5) {
-            pattern <- "approaching clustered"
+            pattern <- "random, approaching clustered"
           } else {
             if (VMR < 1.75) {
               pattern <- "culstered"
